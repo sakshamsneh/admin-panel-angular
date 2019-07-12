@@ -1,0 +1,50 @@
+<div class="container">
+  <br>
+  <h3 align="center">FOOD DETAILS</h3>
+  <table class="table">
+    <thead class="thead-dark" align="center">
+      <tr><th>NAME</th><th>DESCRIPTION</th><th>PRICE</th><th>CATEGORY_ID</th><th>OPTIONS</th></tr>
+    </thead>
+    <tr *ngFor='let f of foodservice.foods'>
+      <td>{{f.fname}}</td>
+      <td>{{f.fdesc}}</td>
+      <td>{{f.fprice | currency:'INR'}}</td>
+      <td>{{f.category_id}}</td>
+      <td style="width:100px">
+        <div class="btn-group" role="group" aria-label="options">
+          <button class="btn btn-dark btn-raised" data-toggle="modal" data-target="#details" (click)="fUpdate(f)">EDIT</button>
+          <button class="btn btn-danger btn-raised" (click)="fDelete(f._id)">DELETE</button>
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="details" tabindex="-1" role="dialog" aria-labelledby="formLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-fname" id="formLabel">FOOD FORM</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #upfdForm='ngForm' (ngSubmit)="onSubmit(upfdForm)">
+          <input class="form-control" type="hidden" name="_id" #_id="ngModel" [(ngModel)]="foodservice.selectedFood._id">
+          <input class="form-control" type="text" name="fname" #fname="ngModel" [(ngModel)]="foodservice.selectedFood.fname" placeholder="NAME"><br>
+          <input class="form-control" type="text" name="fdesc" #fdesc="ngModel" [(ngModel)]="foodservice.selectedFood.fdesc" placeholder="DESCRIPTION"><br>
+          <input class="form-control" type="text" name="fprice" #fprice="ngModel" [(ngModel)]="foodservice.selectedFood.fprice" placeholder="fprice"><br>
+          <select class="form-control" type="dropdown" name="category_id" #category_id="ngModel" [(ngModel)]="foodservice.selectedFood.category_id">
+            <option *ngFor="let c of categoryservice.categorylist" value={{c.categoryname}}>{{c.categoryname}}</option>
+          </select>
+          <div class="btn-group float-right" role="group" aria-label="options">
+            <button type="submit" class="btn btn-raised btn-primary">SUBMIT</button>
+            <button type="reset" class="btn btn-default" (click)="resetForm(upfdForm)">RESET</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

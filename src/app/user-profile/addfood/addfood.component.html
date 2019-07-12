@@ -1,0 +1,16 @@
+<div class="container">
+    <h1 align="center">FOOD FORM</h1>
+    <form #upfdForm='ngForm' (ngSubmit)="onSubmit(upfdForm)">
+        <input class="form-control" type="hidden" name="_id" #_id="ngModel" [(ngModel)]="foodservice.selectedFood._id">
+        <input class="form-control" type="text" name="fname" #fname="ngModel" [(ngModel)]="foodservice.selectedFood.fname" placeholder="NAME"><br>
+        <input class="form-control" type="text" name="fdesc" #fdesc="ngModel" [(ngModel)]="foodservice.selectedFood.fdesc" placeholder="DESCRIPTION"><br>
+        <input class="form-control" type="text" name="fprice" #fprice="ngModel" [(ngModel)]="foodservice.selectedFood.fprice" placeholder="fprice"><br>
+        <select class="form-control" type="dropdown" name="category_id" #category_id="ngModel" [(ngModel)]="foodservice.selectedFood.category_id">
+            <option *ngFor="let c of categoryservice.categorylist" value={{c.categoryname}}>{{c.categoryname}}</option>
+        </select>
+        <div class="btn-group float-right" role="group" aria-label="options">
+            <button type="submit" class="btn btn-raised btn-primary">SUBMIT</button>
+            <button type="reset" class="btn btn-default">RESET</button>
+        </div>
+    </form>
+</div>
